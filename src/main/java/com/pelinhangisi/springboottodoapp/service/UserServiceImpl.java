@@ -17,11 +17,8 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public User save(UserRegistrationRequest userRegistrationRequest) {
-        User user = new User();
-        user.setUsername(userRegistrationRequest.getUsername());
-        user.setPassword(userRegistrationRequest.getPassword());
-        user.setEmail(userRegistrationRequest.getEmail());
-        user.setRoles(Arrays.asList(new Role("ROLE_USER")));
+        User user = new User(userRegistrationRequest.getUsername(), userRegistrationRequest.getPassword(),
+                userRegistrationRequest.getEmail(), Arrays.asList(new Role("ROLE_USER")));
 
         return userRepository.save(user);
     }

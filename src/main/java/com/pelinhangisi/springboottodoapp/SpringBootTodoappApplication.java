@@ -30,6 +30,7 @@ public class SpringBootTodoappApplication implements CommandLineRunner {
         user.setId(1L);
         user.setPassword("password");
         user.setUsername("Pelin Hangişi");
+        user.setEmail("pelinhangisi@gmail.com");
 
         TodoItem todoItem = new TodoItem();
         todoItem.setId(1L);

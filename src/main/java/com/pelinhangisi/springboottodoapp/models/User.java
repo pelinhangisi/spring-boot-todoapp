@@ -44,4 +44,7 @@ public class User {
                     name = "role_id", referencedColumnName = "id"))
     private Collection<Role> roles;
 
+
+    public <T> User(String username, String password, String email, List<T> role_user) {
+    }
 }
