@@ -5,7 +5,6 @@ import com.pelinhangisi.springboottodoapp.dao.UserRepository;
 import com.pelinhangisi.springboottodoapp.models.TodoItem;
 import com.pelinhangisi.springboottodoapp.models.User;
 import com.pelinhangisi.springboottodoapp.request.AddTodoItemRequest;
-import com.pelinhangisi.springboottodoapp.request.AddUserRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,14 +21,6 @@ public class UserController {
     @GetMapping("/{userId}")
     public User getUserById(@PathVariable Long userId){
         return userRepository.findById(userId).orElseThrow(()-> new NoSuchElementException());
-    }
-
-    @PostMapping
-    public User addUser(@RequestBody AddUserRequest userRequest){
-        User user = new User();
-        user.setUsername(userRequest.getUsername());
-        user.setPassword(userRequest.getPassword());
-        return userRepository.save(user);
     }
 
     @PostMapping("/{userId}/todos")

@@ -1,17 +1,17 @@
 package com.pelinhangisi.springboottodoapp.controller;
 
 import com.pelinhangisi.springboottodoapp.request.AddUserRequest;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-@Controller
+@RestController
 public class LoginController {
 
     @GetMapping("/login")
     public String getLoginForm(){
         return "index";
     }
+
 
     @PostMapping("/login")
     public String login(@ModelAttribute(name = "loginForm") AddUserRequest addUserRequest, Model model){
