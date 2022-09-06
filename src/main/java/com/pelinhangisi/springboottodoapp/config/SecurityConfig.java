@@ -1,9 +1,9 @@
 package com.pelinhangisi.springboottodoapp.config;
 
+
 import com.pelinhangisi.springboottodoapp.service.UserService;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -12,12 +12,12 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-@Configuration
+
 @EnableWebSecurity
-@RequiredArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    public final UserService userService;
+    @Autowired
+    public UserService userService;
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder(){
@@ -32,8 +32,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return auth;
     }
 
-    @Bean
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception{
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.authenticationProvider(authenticationProvider());
     }
 
@@ -41,7 +41,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception{
         http
                 .authorizeRequests()
-                .antMatchers("/registration", "/js/**", "/css/**", "/img/**")
+                .antMatchers(
+                        "/registration**",
+                        "/h2-console/**",
+                        "/swagger-ui.html",
+                        "/js/**",
+                        "/css/**",
+                        "/img/**")
                 .permitAll()
                 .anyRequest()
                 .authenticated()
@@ -55,6 +61,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .clearAuthentication(true)
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                 .logoutSuccessUrl("/login?logout")
-                .permitAll();
+                .permitAll()
+                .and()
+                .exceptionHandling()
+                .accessDeniedPage("/403");
+
+        http.csrf().disable();
+        http.headers().frameOptions().disable();
+
     }
+
 }

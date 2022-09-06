@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
   <meta charset="ISO-8859-1">
   <title>Registration</title>
@@ -26,6 +27,7 @@
     </div>
   </div>
 </nav>
+
 <br>
 <br>
 <!-- Create HTML registration form -->
@@ -35,16 +37,17 @@
 
       <!-- success message -->
       <div th:if="${param.success}">
-        <div class="alert alert-info">You've successfully registered !</div>
+        <div class="alert alert-info">You've successfully registered
+          to our awesome app!</div>
       </div>
 
       <h1>Registration</h1>
 
       <form th:action="@{/registration}" method="post" th:object="${user}">
         <div class="form-group">
-          <label class="control-label" for="username"> Username </label>
-          <input id="username" class="form-control" th:field="*{username}"
-                 required autofocus="autofocus" />
+          <label class="control-label" for="username"> User Name </label> <input
+                id="username" class="form-control" th:field="*{username}"
+                required autofocus="autofocus" />
         </div>
 
         <div class="form-group">
@@ -61,7 +64,7 @@
 
         <div class="form-group">
           <button type="submit" class="btn btn-success">Register</button>
-          <span>Already registered? <a href="/" th:href="@{/login}">Login
+          <span>Already registered? <a href="/" th:href="@{/login.html}">Login
 								here</a></span>
         </div>
       </form>

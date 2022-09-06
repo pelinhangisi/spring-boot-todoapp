@@ -11,7 +11,9 @@
         crossorigin="anonymous">
 
 </head>
+
 <body>
+
 <nav class="navbar navbar-inverse navbar-fixed-top">
   <div class="container">
     <div class="navbar-header">
@@ -63,12 +65,15 @@
         <div class="form-group">
           <div class="row">
             <div class="col-sm-6 col-sm-offset-3">
-              <input type="submit" name="login-submit" id="login-submit"
-                     class="form-control btn btn-primary" value="Log In" />
-            </div>
+                <button type="submit" class="btn btn-success">Log In</button>
+                 <a href="/" th:href="@{/todolist.html}"></a>
+              </div>
           </div>
         </div>
       </form>
+      <div class="form-group">
+        <span>New User ? <a href="/" th:href="@{/registration}">Register</a> </span>
+      </div>
 
     </div>
   </div>

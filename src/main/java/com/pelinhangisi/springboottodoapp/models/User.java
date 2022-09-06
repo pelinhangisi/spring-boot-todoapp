@@ -1,8 +1,7 @@
 package com.pelinhangisi.springboottodoapp.models;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -12,8 +11,6 @@ import java.util.List;
 @Entity
 @Data
 @Table(name = "users", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
-@NoArgsConstructor
-@AllArgsConstructor
 public class User {
 
     @Id
@@ -44,7 +41,15 @@ public class User {
                     name = "role_id", referencedColumnName = "id"))
     private Collection<Role> roles;
 
+    public User() {
 
-    public <T> User(String username, String password, String email, List<T> role_user) {
+    }
+
+    public User(String username, String email, String password, Collection<Role> roles) {
+        super();
+        this.username= username;
+        this.email = email;
+        this.password = password;
+        this.roles = roles;
     }
 }
