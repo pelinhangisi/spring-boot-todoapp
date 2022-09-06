@@ -5,6 +5,8 @@ import com.pelinhangisi.springboottodoapp.models.Role;
 import com.pelinhangisi.springboottodoapp.models.User;
 import com.pelinhangisi.springboottodoapp.request.UserRegistrationRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
@@ -21,5 +23,10 @@ public class UserServiceImpl implements UserService{
                 userRegistrationRequest.getEmail(), Arrays.asList(new Role("ROLE_USER")));
 
         return userRepository.save(user);
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return null;
     }
 }
