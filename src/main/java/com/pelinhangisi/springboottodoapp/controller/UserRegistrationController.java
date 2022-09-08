@@ -16,19 +16,15 @@ public class UserRegistrationController {
 
     private final UserService userService;
 
-    @ModelAttribute("user")
-    public UserRegistrationRequest userRegistrationRequest(){
-        return new UserRegistrationRequest();
-    }
-
     @GetMapping
-    public String showRegistration(){
+    public String showRegistration(Model model){
+        model.addAttribute("user", new UserRegistrationRequest());
         return "registration";
     }
 
     @PostMapping
     public String registerUser(@ModelAttribute("user") UserRegistrationRequest userRegistrationRequest){
         userService.save(userRegistrationRequest);
-        return "redirect:/redirect?success";
+        return "redirect:/registration?success";
     }
 }

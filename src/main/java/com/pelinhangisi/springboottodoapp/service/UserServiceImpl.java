@@ -4,6 +4,7 @@ import com.pelinhangisi.springboottodoapp.dao.UserRepository;
 import com.pelinhangisi.springboottodoapp.models.Role;
 import com.pelinhangisi.springboottodoapp.models.User;
 import com.pelinhangisi.springboottodoapp.request.UserRegistrationRequest;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -13,31 +14,26 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 
+import java.util.Arrays;
 import java.util.Collection;
-import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class UserServiceImpl implements UserService{
 
     private final UserRepository userRepository;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
-    public UserServiceImpl(UserRepository userRepository) {
-        super();
-        this.userRepository = userRepository;
-    }
-
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public User save(UserRegistrationRequest userRegistrationRequest){
         User user = new User();
-        user.setUsername(userRegistrationRequest.getUsername());
-        user.setPassword(passwordEncoder.encode(userRegistrationRequest.getPassword()));
+        user.setFirstName(userRegistrationRequest.getFirstName());
+        user.setLastName(userRegistrationRequest.getLastName());
         user.setEmail(userRegistrationRequest.getEmail());
-        user.setRoles(List.of(new Role("ROLE_USER")));
+        user.setPassword(passwordEncoder.encode(userRegistrationRequest.getPassword()));
+        user.setRoles(Arrays.asList(new Role("ROLE_USER")));
         return userRepository.save(user);
     }
 
