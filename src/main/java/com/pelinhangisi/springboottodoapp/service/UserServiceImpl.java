@@ -9,31 +9,35 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
+
 import java.util.Collection;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService{
 
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     @Autowired
-    private BCryptPasswordEncoder passwordEncoder;
+    private PasswordEncoder passwordEncoder;
 
     public UserServiceImpl(UserRepository userRepository) {
         super();
         this.userRepository = userRepository;
     }
 
+
     @Override
-    public User save(UserRegistrationRequest userRegistrationRequest) {
-        User user = new User(userRegistrationRequest.getUsername(),
-                passwordEncoder.encode(userRegistrationRequest.getPassword()),
-                userRegistrationRequest.getEmail(), Arrays.asList(new Role("ROLE_USER")));
+    public User save(UserRegistrationRequest userRegistrationRequest){
+        User user = new User();
+        user.setUsername(userRegistrationRequest.getUsername());
+        user.setPassword(passwordEncoder.encode(userRegistrationRequest.getPassword()));
+        user.setEmail(userRegistrationRequest.getEmail());
+        user.setRoles(List.of(new Role("ROLE_USER")));
         return userRepository.save(user);
     }
 

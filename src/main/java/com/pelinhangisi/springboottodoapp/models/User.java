@@ -1,6 +1,9 @@
 package com.pelinhangisi.springboottodoapp.models;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 
 import javax.persistence.*;
@@ -10,16 +13,21 @@ import java.util.List;
 
 @Entity
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "users", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 
     @Column(name = "user_name")
-    private String username;
+    private String firstName;
+
+    @Column(name = "last_name")
+    private String lastName;
 
     @Column(name = "email")
     private String email;
@@ -27,11 +35,9 @@ public class User {
     @Column(name = "password")
     private String password;
 
-    // one user can use multiple todos
     @OneToMany(cascade = CascadeType.ALL)
     private List<TodoItem> todoItems = new ArrayList<>();
 
-    //for registration user-role relation
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
             name = "users_roles",
@@ -41,15 +47,5 @@ public class User {
                     name = "role_id", referencedColumnName = "id"))
     private Collection<Role> roles;
 
-    public User() {
 
-    }
-
-    public User(String username, String email, String password, Collection<Role> roles) {
-        super();
-        this.username= username;
-        this.email = email;
-        this.password = password;
-        this.roles = roles;
-    }
 }
