@@ -2,10 +2,12 @@ package com.pelinhangisi.springboottodoapp.config;
 
 
 import com.pelinhangisi.springboottodoapp.service.UserService;
-import lombok.RequiredArgsConstructor;
+import org.springdoc.webmvc.ui.SwaggerConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -17,6 +19,8 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
+@ComponentScan(basePackages = { "com.pelinhangisi" })
+@Import(SwaggerConfig.class)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -42,11 +46,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception{
+
         http.authorizeRequests()
                 .antMatchers("/registration**", "/js/**", "/css/**", "/img/**", "/").permitAll()
                 .antMatchers("/tasklist**").permitAll()
                 .antMatchers("/h2-console/**").permitAll()
-                .antMatchers("/swagger-ui.html").permitAll()
+                .antMatchers("/swagger/**","/v2/api-docs","/configuration/ui",
+                        "/swagger-resources/**",
+                        "/configuration/security",
+                        "/webjars/**").permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()
