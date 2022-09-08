@@ -5,12 +5,11 @@ import com.pelinhangisi.springboottodoapp.models.Role;
 import com.pelinhangisi.springboottodoapp.models.User;
 import com.pelinhangisi.springboottodoapp.request.UserRegistrationRequest;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 
@@ -24,7 +23,7 @@ public class UserServiceImpl implements UserService{
 
     private final UserRepository userRepository;
 
-    private final PasswordEncoder passwordEncoder;
+    private final BCryptPasswordEncoder passwordEncoder;
 
     @Override
     public User save(UserRegistrationRequest userRegistrationRequest){
