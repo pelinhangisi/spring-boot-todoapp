@@ -19,13 +19,43 @@
 <br>
 
 <div class="container">
-    <h1>Todo-List</h1>
-    Welcome User
+    <div class="row">
+        <h1>Todo-List</h1>
+    </div>
+    <table class="table table-bordered table-striped">
+        <thead>
+        <tr>
+            <th>Actions</th>
+            <th>Id</th>
+            <th>Description</th>
+            <th>Complete</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="tasklist : ${tasklist}" th:class="${task.complete} ? success : warning">
+            <td>
+                <div class="btn btn-group-sm" role="group">
+                    <a class="btn btn-info" th:href="@{/edit/{id}(id=${tasklist.id})}">Edit</a>
+                    <a class="btn btn-danger" th:href="@{/delete/{id}(id=${tasklist.id})}">Delete</a>
+                </div>
+            </td>
+            <td th:text="${tasklist.id}">1</td>
+            <td th:text="${tasklist.description}">Finish the assesment</td>
+            <td th:text="${tasklist.complete}">true</td>
+
+        </tr>
+        </tbody>
+    </table>
+
+    <p><a class="btn btn-success" href="/create-todo">Add a Todo!</a></p>
+</div>
+
 </div>
 
 
     <h1>********************</h1>
-    <h1>To Do List Düzenlenecek</h1>
+    <h1>To Do List Duzenlenecek</h1>
     <h1>********************</h1>
 </body>
 </html>

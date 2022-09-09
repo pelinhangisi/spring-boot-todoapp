@@ -1,9 +1,7 @@
 package com.pelinhangisi.springboottodoapp.models;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
+import com.pelinhangisi.springboottodoapp.request.UserRegistrationRequest;
+import lombok.*;
 
 
 import javax.persistence.*;
@@ -15,8 +13,9 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @Table(name = "users", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
-public class User {
+public class User  {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

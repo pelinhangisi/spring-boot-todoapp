@@ -9,7 +9,7 @@ import javax.persistence.*;
 
 @Entity
 @Data
-@Table(name = "todo_items")
+@Table(name = "tasklist")
 @NoArgsConstructor
 @AllArgsConstructor
 public class TodoItem {

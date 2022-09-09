@@ -32,9 +32,6 @@ public class SwaggerConfiguration {
                 .securitySchemes(Arrays.asList(apiKey()))
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.pelinhangisi.springboottodoapp"))
-//                .apis(RequestHandlerSelectors.any())
-//                .paths(PathSelectors.regex("/api/.*"))
-//                .paths(PathSelectors.any())
                 .build();
     }
 
